@@ -10,7 +10,7 @@ import React, {useState} from 'react';
 import {StyleSheet, View, Button, Text} from 'react-native';
 
 const App: () => React$Node = () => {
-  const [names, setnames] = useState(['Name-1', 'Name-2', 'Name-3', 'Name-4']);
+  const [names, setnames] = useState(['Jason', 'Bruce', 'Harvey', 'Peter']);
   const [count, setcount] = useState(0);
   const onButtonPress = () => {
     const temp = [...names];
