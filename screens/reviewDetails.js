@@ -1,11 +1,24 @@
 import React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
-import {styles} from '../App';
+import {Text, View, StyleSheet, Button} from 'react-native';
 
-export default function reviewDetails() {
+const ReviewDetails = ({navigation}) => {
+  const pressHandler = () => {
+    navigation.pop();
+  };
   return (
-    <View>
-      <Text styles={styles.mainStyleView}>Review details</Text>
+    <View style={styles.mainViewStyle}>
+      <Text>Review Details</Text>
+      <Button title={'Return'} onPress={pressHandler} />
     </View>
   );
-}
+};
+
+const styles = StyleSheet.create({
+  mainViewStyle: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
+
+export default ReviewDetails;
