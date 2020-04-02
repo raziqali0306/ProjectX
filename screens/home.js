@@ -1,32 +1,45 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, StyleSheet, Button, AsyncStorage} from 'react-native';
+import {View, StyleSheet, Text, Button, CheckBox} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
 
-const Home = props => {
-  const [num, setNum] = useState(0);
-
-  const getCountFromStorage = async () => {
-    const countString = await AsyncStorage.getItem('clickCount');
-    console.log('------- got count string as ', countString);
-    setNum(Number(countString));
-  };
-  useEffect(() => {
-    getCountFromStorage();
-  }, []);
-
-  const tapHandler = async () => {
-    setNum(numOne => {
-      const x = numOne + 1;
-      AsyncStorage.setItem('clickCount', `${x}`);
-      return x;
+const Home = ({navigation}) => {
+  const pressHandler = () => {
+    navigation.navigate('AddItems', {
+      callBack: text => {
+        setTodos(currentTodos => [
+          ...currentTodos,
+          {title: text, completed: false},
+        ]);
+      },
     });
   };
+  const [Todos, setTodos] = useState([]);
 
   return (
     <View style={styles.mainViewStyle}>
-      <Text>Home screen</Text>
-      {/* <Button title={'goto Review Details->'} onPress={gotoReviewDetails} /> */}
-      <Text>num = {num}</Text>
-      <Button title={'TAP'} onPress={tapHandler} />
+      <View style={styles.header}>
+        <Text style={styles.title}>Todo</Text>
+      </View>
+
+      <View style={styles.list}>
+        {Todos.map((item, index) => {
+          console.log(item);
+          return (
+            <View key={index} style={styles.itemStyle}>
+              <CheckBox value={item.completed} />
+              <Text>{item.title}</Text>
+            </View>
+          );
+        })}
+      </View>
+
+      <View style={styles.footer}>
+        <Button
+          title={'ADD ITEM ->'}
+          style={styles.footer}
+          onPress={pressHandler}
+        />
+      </View>
     </View>
   );
 };
@@ -34,8 +47,37 @@ const Home = props => {
 const styles = StyleSheet.create({
   mainViewStyle: {
     flex: 1,
-    justifyContent: 'center',
+  },
+  itemStyle: {
+    flexDirection: 'row',
     alignItems: 'center',
+    padding: 10,
+    borderBottomColor: '#000000',
+    borderBottomWidth: 1,
+  },
+  header: {
+    flex: 1,
+    borderColor: 'black',
+    borderWidth: 1,
+    justifyContent: 'center',
+    backgroundColor: 'orange',
+    alignItems: 'center',
+  },
+  list: {
+    flex: 8,
+    backgroundColor: 'white',
+  },
+  footer: {
+    flex: 1,
+    backgroundColor: 'grey',
+    justifyContent: 'space-evenly',
+    alignItems: 'flex-end',
+    paddingRight: 35,
+  },
+  title: {
+    color: 'white',
+    fontSize: 26,
+    fontWeight: 'bold',
   },
 });
 

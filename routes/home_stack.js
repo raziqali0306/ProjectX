@@ -1,14 +1,17 @@
 import {createStackNavigator} from 'react-navigation-stack';
 import {createAppContainer} from 'react-navigation';
-import Home from '../screens/home';
-import ReviewDetails from '../screens/reviewDetails';
-
+// import Home from '../screens/home';
+// import AddItems from '../screens/addItems';
+import periodicTable from '../screens/PeriodicTable';
 const HomeStack = createStackNavigator({
-  Home: {
-    screen: Home,
-  },
-  ReviewDetails: {
-    screen: ReviewDetails,
+  // Home: {
+  //   screen: Home,
+  // },
+  // AddItems: {
+  //   screen: AddItems,
+  // },
+  periodicTable: {
+    screen: periodicTable,
   },
 });
 
